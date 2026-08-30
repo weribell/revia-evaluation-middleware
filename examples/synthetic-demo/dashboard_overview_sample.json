@@ -1,0 +1,62 @@
+{
+  "created_at": "2026-08-07T09:35:45+00:00",
+  "total_questions": 11,
+  "total_sample_traces": 11,
+  "variant_counts": {
+    "normal_source_grounded": 9,
+    "synthetic_hallucination": 1,
+    "simulated_judge_miss": 1
+  },
+  "question_target_section_counts": {
+    "required_documents": 2,
+    "fees": 2,
+    "requirements": 2,
+    "processing_time": 2,
+    "responsibility_notes": 2,
+    "forms": 1
+  },
+  "trace_target_section_counts": {
+    "required_documents": 2,
+    "fees": 2,
+    "requirements": 2,
+    "processing_time": 2,
+    "responsibility_notes": 2,
+    "forms": 1
+  },
+  "question_style_counts": {
+    "direct_clean": 1,
+    "polite_formal": 1,
+    "casual_hello": 1,
+    "bad_german": 1,
+    "impatient": 1,
+    "sms_short": 1,
+    "no_punctuation": 1,
+    "long_confused": 1,
+    "forum_story": 1,
+    "appointment_panic": 1,
+    "unrelated_services": 1
+  },
+  "question_intent_type_counts": {
+    "single_intent": 10,
+    "multi_intent_unrelated_services": 1
+  },
+  "question_difficulty_counts": {
+    "standard": 10,
+    "multi_service": 1
+  },
+  "expected_answer_behavior_counts": {
+    "answer_requested_section": 10,
+    "separate_topics_and_avoid_merging": 1
+  },
+  "disagreement_count": 1,
+  "average_automated_faithfulness": 0.914,
+  "average_automated_relevance": 0.964,
+  "top_services_in_sample": {
+    "Community garden plot permit": 3,
+    "Mobile library card application": 2,
+    "Neighbourhood market stall registration": 2,
+    "Residential bicycle-box access request": 2,
+    "Community event-room booking request": 2
+  },
+  "note": "Human reviews are synthetic reference labels for software testing. They must not be reported as empirical human annotation."
+}

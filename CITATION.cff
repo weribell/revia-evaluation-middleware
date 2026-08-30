@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Revia: Review and Evaluation Infrastructure for AI Answers"
+type: software
+repository-code: "https://github.com/weribell/revia-evaluation-middleware"
+authors:
+  - given-names: "Veronika"
+    family-names: "Skorkin"
+license: "Apache-2.0"
+keywords:
+  - "LLM evaluation"
+  - "human-in-the-loop"
+  - "LLM-as-a-Judge"
+  - "public administration"
+  - "evaluation middleware"

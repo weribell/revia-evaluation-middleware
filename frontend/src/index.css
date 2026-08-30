@@ -1,0 +1,403 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --font-mono: ui-monospace, monospace;
+
+    /* Refresh: typography scale */
+    /* One metric size for every stat card, Management and Audit alike. */
+    --text-metric: 1.375rem;
+    --text-metric--line-height: 1.15;
+    --text-metric--font-weight: 800;
+    --text-panel-title: 1.1875rem;
+    --text-panel-title--line-height: 1.3;
+    --text-panel-title--font-weight: 800;
+    /* Section-card titles: the workhorse header inside a panel. One step below
+       --text-panel-title, which is reserved for a screen's leading panel. The
+       app previously spelled this as raw `text-sm font-semibold` in every
+       dashboard, which is why panel headers drifted apart. */
+    --text-section-title: 0.9375rem;
+    --text-section-title--line-height: 1.35;
+    --text-section-title--font-weight: 700;
+    /* Banner headline: a callout heading, not a display heading. */
+    --text-banner-title: 1.25rem;
+    --text-banner-title--line-height: 1.3;
+    --text-banner-title--font-weight: 800;
+    /* One step up, for a tab's single hero banner. */
+    --text-banner-title-lg: 1.5rem;
+    --text-banner-title-lg--line-height: 1.25;
+    --text-banner-title-lg--font-weight: 800;
+    /* Named --text-caps, not --text-label: --color-label already owns `text-label`. */
+    --text-caps: 0.75rem;
+    --text-caps--line-height: 1.2;
+    --text-caps--font-weight: 800;
+    --text-caps--letter-spacing: 0.6px;
+    /* Stat-card labels sit one step below table column headers. */
+    --text-caps-sm: 0.6875rem;
+    --text-caps-sm--line-height: 1.2;
+    --text-caps-sm--font-weight: 800;
+    --text-caps-sm--letter-spacing: 0.5px;
+
+    /* Refresh: surfaces, text and depth */
+    --color-body: var(--body);
+    --color-label: var(--label);
+    --color-surface-soft: var(--surface-soft);
+    --color-surface-head: var(--surface-head);
+    --color-surface-head-border: var(--surface-head-border);
+    --color-row-border: var(--row-border);
+    --color-value-positive: var(--value-positive);
+    --color-value-negative: var(--value-negative);
+    --color-tile-positive: var(--tile-positive);
+    --color-tile-positive-border: var(--tile-positive-border);
+    --color-tile-positive-label: var(--tile-positive-label);
+    --color-tile-negative: var(--tile-negative);
+    --color-tile-negative-border: var(--tile-negative-border);
+    --color-tile-negative-label: var(--tile-negative-label);
+    --color-chart-track: var(--chart-track);
+    --color-code-surface: var(--code-surface);
+    --color-code-foreground: var(--code-foreground);
+    --color-primary-hover: var(--primary-hover);
+    --color-signal-green: var(--signal-green);
+    --color-signal-amber: var(--signal-amber);
+    --color-signal-grey: var(--signal-grey);
+    --shadow-card: 0 6px 22px rgba(40, 30, 70, 0.06);
+    --shadow-panel: 0 12px 40px rgba(40, 30, 70, 0.08);
+    --shadow-primary: 0 4px 12px rgba(87, 79, 142, 0.28);
+    --shadow-control: 0 1px 2px rgba(40, 30, 70, 0.05);
+
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    /* Refresh: fixed radius steps rather than multiples of --radius, so each step
+       lands on a value the design actually uses:
+       inputs 10-12 · icon badges 12 · inner cards 14 · cards 16 · panels 18 · shell 24 */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 14px;
+    --radius-xl: 16px;
+    --radius-2xl: 18px;
+    --radius-3xl: 24px;
+    --radius-4xl: 32px;
+}
+
+:root {
+    /* Page shell: cool lilac gradient, so white cards read as raised surfaces.
+       --background stays white: it backs controls (outline buttons, inputs),
+       not the page. The page tint comes from --page-gradient only. */
+    --page-gradient: linear-gradient(180deg, #f4f3f8 0%, #eeedf3 100%);
+    --background: #ffffff;
+
+    /* Text hierarchy: title / body / secondary body / muted CAPS label. */
+    --foreground: #221d38;
+    --body: #3a3550;
+    --muted-foreground: #615c74;
+    --label: #8a8599;
+
+    --card: #ffffff;
+    --card-foreground: #221d38;
+    --surface-soft: #faf9fd;
+    /* Lilac header vs white rows is what gives the table its brightness —
+       deliberately NOT flattened into one grey. */
+    --surface-head: #f2eff9;
+    --surface-head-border: #e6e1f1;
+    --row-border: #f0eef6;
+    /* Stat-card values read as status, not as body text. */
+    --value-positive: var(--dashboard-ready-foreground);
+    --value-negative: #b0243f;
+    /* Stat-tile fills sit paler than decision badges: a whole card tinted at
+       badge strength would shout louder than the badges next to it. */
+    --tile-positive: #f2faf5;
+    --tile-positive-border: #cdeadb;
+    --tile-positive-label: #5a9b7c;
+    --tile-negative: #fdf3f5;
+    --tile-negative-border: #f2d3da;
+    --tile-negative-label: #b06074;
+    --popover: #ffffff;
+    --popover-foreground: #221d38;
+
+    --primary: #574f8e;
+    --primary-foreground: #ffffff;
+    --primary-hover: #453f73;
+    --dashboard-active: #574f8e;
+    --dashboard-active-foreground: #ffffff;
+
+    /* Status — satt: decision badges. */
+    --dashboard-ready: #e7f6ee;
+    --dashboard-ready-border: #bfe6d1;
+    --dashboard-ready-foreground: #16855c;
+    --dashboard-judge: #fef6e6;
+    --dashboard-judge-border: #f2ddab;
+    --dashboard-judge-foreground: #9a6b00;
+    --dashboard-risk: #fbeef1;
+    --dashboard-risk-border: #f0ccd5;
+    --dashboard-risk-foreground: #b9425a;
+    --dashboard-error: #fdeef1;
+    --dashboard-error-border: #f5cdd6;
+    --dashboard-error-foreground: #c0344a;
+    --dashboard-error-rail: #d9556e;
+    /* "cleared" — a settled/no-signal green, deliberately quieter than accept. */
+    --dashboard-clear: #eef4ee;
+    --dashboard-clear-border: #cfe2cf;
+    --dashboard-clear-foreground: #4d7a52;
+    --dashboard-source: #eef4ff;
+    --dashboard-source-border: #cfdcf5;
+    --dashboard-source-foreground: #3a5f9c;
+    --dashboard-human: #f2edfb;
+    --dashboard-human-border: #ddd2f0;
+    --dashboard-human-foreground: #5b4f96;
+    --dashboard-neutral: #ffffff;
+    --dashboard-neutral-border: #dcd8e8;
+    --dashboard-neutral-foreground: #4a4560;
+    /* "notice" — a neutral slate for system warnings, kept apart from the amber
+       judge/warning tone so a system notice never reads as a needs_edit decision. */
+    --dashboard-notice: #eef1f5;
+    --dashboard-notice-border: #c6cedb;
+    --dashboard-notice-foreground: #47536b;
+
+    /* Status — bleich: filter chips stay quiet so the active chip carries the selection. */
+    --chip-neutral: #ffffff;
+    --chip-neutral-border: #dcd8e8;
+    --chip-neutral-foreground: #4a4560;
+    --chip-neutral-count: #9a95ac;
+    --chip-warn: #fdf8ec;
+    --chip-warn-border: #ecdfc0;
+    --chip-warn-foreground: #a98a4a;
+    --chip-error: #fdf4f6;
+    --chip-error-border: #f0d9df;
+    --chip-error-foreground: #b06074;
+
+    /* Banner fills: a tone-tinted wash for full-width decision/info banners.
+       Pair each with the matching --dashboard-<tone>-border and -foreground. */
+    --banner-warn: linear-gradient(120deg, #fdf6e7, #fbf1dd);
+    --banner-error: linear-gradient(120deg, #fdf3f5, #fcecef);
+    --banner-ready: linear-gradient(120deg, #f1f9f4, #eaf5ee);
+    --banner-info: linear-gradient(120deg, #f3f5fd, #edf0fa);
+    --banner-human: linear-gradient(120deg, #f5f2fc, #efebf8);
+    --banner-neutral: linear-gradient(120deg, #faf9fd, #f4f2f9);
+
+    /* Banner shade ramp per tone: eyebrow < body < title, darkest last, plus an
+       accent for the highlighted figure and status dot, and chip fill/border for
+       the status badge. This is what stops a banner reading as a wall of one colour.
+       Every shade sits notably DARKER than the wash it sits on — a supporting line
+       must not be a neighbouring shade of the fill, or it stops being readable.
+       The judge and risk ramps come from design review; the rest follow the same
+       relationship and have NOT been reviewed. */
+    --banner-judge-eyebrow: #977117;
+    --banner-judge-title: #3f3208;
+    --banner-judge-body: #6a5518;
+    --banner-judge-accent: #d99a17;
+    --banner-judge-chip: #f6e6be;
+    --banner-judge-chip-border: #e6cd8f;
+
+    --banner-risk-eyebrow: #a84d63;
+    --banner-risk-title: #8f1d33;
+    --banner-risk-body: #9c4258;
+    --banner-risk-accent: #c0344a;
+    --banner-risk-chip: #fbe1e6;
+    --banner-risk-chip-border: #f2c4cf;
+
+    --banner-ready-eyebrow: #2f7a58;
+    --banner-ready-title: #0d4a33;
+    --banner-ready-body: #1d6b4d;
+    --banner-ready-accent: #2f9e6b;
+    --banner-ready-chip: #d9f0e3;
+    --banner-ready-chip-border: #b3ddc6;
+
+    --banner-human-eyebrow: #4f4489;
+    --banner-human-title: #2b2456;
+    --banner-human-body: #423875;
+    --banner-human-accent: #7a6ab5;
+    --banner-human-chip: #e7e2f6;
+    --banner-human-chip-border: #cfc7e8;
+
+    --banner-source-eyebrow: #33538a;
+    --banner-source-title: #1c3661;
+    --banner-source-body: #2a4674;
+    --banner-source-accent: #4a7ac0;
+    --banner-source-chip: #dfe9f8;
+    --banner-source-chip-border: #c3d5ee;
+
+    --banner-neutral-eyebrow: #5c5670;
+    --banner-neutral-title: #221d38;
+    --banner-neutral-body: #4a4560;
+    --banner-neutral-accent: #9a95ac;
+    --banner-neutral-chip: #f0eef6;
+    --banner-neutral-chip-border: #dcd8e8;
+
+    /* Code/JSON blocks stay dark in both themes: a request/response example is
+       a terminal-like surface, not page content. Tokenised so the two <pre>
+       blocks in the developer panels stop hardcoding their own hex values. */
+    --code-surface: #1f1823;
+    --code-foreground: #f8f5fb;
+
+    /* Ampel dots on stat cards. */
+    --signal-green: #2f9e6b;
+    --signal-amber: #d99a17;
+    --signal-grey: #9a95ac;
+
+    --secondary: #f3f1f8;
+    --secondary-foreground: #3a3550;
+    --muted: #f3f1f8;
+    --accent: #f2f0f8;
+    --accent-foreground: #574f8e;
+    --destructive: #c0344a;
+    --border: #e4e0ee;
+    --input: #ddd8e8;
+    --ring: #b8aed8;
+    /* Charts reuse the Ampel colours so a bar and its stat-card dot can't drift apart. */
+    --chart-1: var(--signal-green);
+    --chart-2: var(--signal-amber);
+    --chart-3: #d64563;
+    --chart-4: #8a5bb8;
+    --chart-5: var(--signal-grey);
+    --chart-track: #f0edf5;
+    --radius: 0.875rem;
+    --sidebar: #ffffff;
+    --sidebar-foreground: #221d38;
+    --sidebar-primary: #574f8e;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #f2f0f8;
+    --sidebar-accent-foreground: #574f8e;
+    --sidebar-border: #e4e0ee;
+    --sidebar-ring: #b8aed8;
+}
+
+.dark {
+    --page-gradient: linear-gradient(180deg, #1b1726 0%, #151220 100%);
+    --background: oklch(0.145 0.008 326);
+    --foreground: oklch(0.985 0 0);
+    --body: oklch(0.92 0.005 325);
+    --label: oklch(0.711 0.019 323.02);
+    --card: oklch(0.212 0.019 322.12);
+    --card-foreground: oklch(0.985 0 0);
+    --surface-soft: oklch(0.24 0.021 322);
+    --surface-head: oklch(0.26 0.023 322);
+    --surface-head-border: oklch(1 0 0 / 12%);
+    --row-border: oklch(1 0 0 / 8%);
+    --value-positive: var(--dashboard-ready-foreground);
+    --value-negative: #e2879a;
+    --tile-positive: #1f2f26;
+    --tile-positive-border: #3d5a49;
+    --tile-positive-label: #7fb99a;
+    --tile-negative: #2f1e24;
+    --tile-negative-border: #5c3540;
+    --tile-negative-label: #d9909f;
+    --popover: oklch(0.212 0.019 322.12);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: #b8aed8;
+    --primary-foreground: #1f1a27;
+    --primary-hover: #cdc4e6;
+    --dashboard-active: #b8aed8;
+    --dashboard-active-foreground: #1f1a27;
+    --dashboard-error: #3a1f29;
+    --dashboard-error-border: #7a3447;
+    --dashboard-error-foreground: #f2a9ba;
+    --dashboard-clear: #23301f;
+    --dashboard-clear-border: #46603f;
+    --dashboard-clear-foreground: #9cc79f;
+    --dashboard-neutral: oklch(0.212 0.019 322.12);
+    --dashboard-neutral-border: oklch(1 0 0 / 15%);
+    --dashboard-neutral-foreground: oklch(0.985 0 0);
+    --dashboard-notice: #232833;
+    --dashboard-notice-border: #47536b;
+    --dashboard-notice-foreground: #aeb9cf;
+    --chip-neutral: oklch(0.212 0.019 322.12);
+    --chip-neutral-border: oklch(1 0 0 / 15%);
+    --chip-neutral-foreground: oklch(0.92 0.005 325);
+    --chip-neutral-count: oklch(0.711 0.019 323.02);
+    --chip-warn: #2b2317;
+    --chip-warn-border: #5c4a28;
+    --chip-warn-foreground: #d9b877;
+    --chip-error: #2f1e24;
+    --chip-error-border: #633945;
+    --chip-error-foreground: #d99aab;
+    --signal-green: #4fbb87;
+    --signal-amber: #e2b04a;
+    --signal-grey: #8b8698;
+    --chart-track: oklch(0.263 0.024 320.12);
+    --dashboard-source: #1f2b3c;
+    --dashboard-source-border: #38506f;
+    --dashboard-source-foreground: #b7d4ff;
+    --dashboard-judge: #332817;
+    --dashboard-judge-border: #755728;
+    --dashboard-judge-foreground: #f7c66f;
+    --dashboard-human: #2b2438;
+    --dashboard-human-border: #57486f;
+    --dashboard-human-foreground: #d8c9ff;
+    --dashboard-risk: #3a1f29;
+    --dashboard-risk-border: #7a3447;
+    --dashboard-risk-foreground: #f2a9ba;
+    --dashboard-ready: #1f3328;
+    --dashboard-ready-border: #3f6b4e;
+    --dashboard-ready-foreground: #9fd8b3;
+    --secondary: oklch(0.263 0.024 320.12);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.263 0.024 320.12);
+    --muted-foreground: oklch(0.711 0.019 323.02);
+    --accent: oklch(0.263 0.024 320.12);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: #b8aed8;
+    --chart-1: oklch(0.865 0.012 325.68);
+    --chart-2: oklch(0.542 0.034 322.5);
+    --chart-3: oklch(0.435 0.029 321.78);
+    --chart-4: oklch(0.364 0.029 323.89);
+    --chart-5: oklch(0.263 0.024 320.12);
+    --sidebar: oklch(0.212 0.019 322.12);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.263 0.024 320.12);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.542 0.034 322.5);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    background-image: var(--page-gradient);
+    background-attachment: fixed;
+    }
+  html {
+    @apply font-sans;
+    }
+}
